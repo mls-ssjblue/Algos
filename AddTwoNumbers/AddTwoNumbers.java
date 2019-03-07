@@ -51,19 +51,5 @@ public class AddTwoNumbers {
         return answer.next;
     }
 
-    private static ListNode insertIntoAnswer(int sumDigit, ListNode answer) {
-
-        ListNode newDigit = new ListNode(sumDigit);
-        answer.next = newDigit;
-        return newDigit;
-    }
-
-    private static int getLength(ListNode tmp) {
-        int len = 0;
-        while (tmp.next != null) {
-            tmp = tmp.next;
-            len++;
-        }
-        return len + 1;
-    }
+   
 }
