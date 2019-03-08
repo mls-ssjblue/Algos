@@ -17,7 +17,7 @@ public class ReverseInteger {
         int i = 0;
         while(mag > 0){
             int digit = mag % 10;
-            if(reversed > MAX_POSITIVE_INT_VAL/10 ){
+            if(reversed > MAX_POSITIVE_INT_VAL/10 || reversed == MAX_POSITIVE_INT_VAL/10 && digit > 7 ){
                 return 0;
             }
             reversed = reversed * 10 +  digit;
