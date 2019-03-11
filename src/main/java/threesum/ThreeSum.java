@@ -1,5 +1,8 @@
-import java.util.*;
-import java.util.stream.Collectors;
+package threesum;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class ThreeSum {
