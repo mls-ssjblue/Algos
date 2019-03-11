@@ -1,12 +1,3 @@
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
-    }
-}
-
 public class AddTwoNumbers {
 
     public static void main(String[] args) {
