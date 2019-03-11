@@ -1,13 +1,7 @@
-package TwoSum;
+package twosum;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class TwoSumV2 {
     public static void main(String[] args) {
