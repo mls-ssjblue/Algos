@@ -10,6 +10,7 @@ public class SortedArrayToSortedBST {
 
     private static void printBT(TreeNode bt) {
 
+        if(bt == null) return;
         System.out.println(bt.val);
         printBT(bt.left);
         printBT(bt.right);
