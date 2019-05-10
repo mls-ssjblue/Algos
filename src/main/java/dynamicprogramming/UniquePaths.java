@@ -1,4 +1,4 @@
-package dynamicprogramming.longest_palindrome_substring;
+package dynamicprogramming;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

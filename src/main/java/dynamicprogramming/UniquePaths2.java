@@ -1,4 +1,4 @@
-package dynamicprogramming.longest_palindrome_substring;
+package dynamicprogramming;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,6 +15,7 @@ public class UniquePaths2 {
     }
 
     public int uniquePathsWithObstacles(int[][] maze) {
+        if(maze[0][0] ==1 ) return 0;
         int m = maze.length;
         int n = maze[0].length;
 
