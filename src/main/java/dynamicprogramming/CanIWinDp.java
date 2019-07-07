@@ -26,28 +26,27 @@ public class CanIWinDp {
         for(int i = 0;i<N+1;i++) chosen.add(false);
         memo = new HashMap<>();
 
-        return !canIWin(N, target, chosen);
+        return !canIWin(N, target, new boolean[N]);
     }
 
-    private boolean canIWin(int n, int currentDesiredTotal, List<Boolean> chosen) {
+    private boolean canIWin(int n, int currentDesiredTotal, boolean[] chosen) {
 
         if(currentDesiredTotal <= 0) return true;
-        String chosenSerialization = Arrays.toString(chosen.toArray());
+        String chosenSerialization = Arrays.toString(chosen);
         if (memo.containsKey(chosenSerialization)) {
             return memo.get(chosenSerialization);
         }
         for(int i = 1; i <= n; i ++ ){
-            if(chosen.get(i-1))continue;
+            if(chosen[i-1])continue;
 
-            int lastIndex = i-1;
-            chosen.set(lastIndex,true);
+            chosen[i-1] = true;
 
             if(canIWin(n, currentDesiredTotal - i, chosen)){
                 memo.put(chosenSerialization, false);
-                chosen.set(lastIndex, false);
+                chosen[i-1] = false;
                 return false;
             }
-            chosen.set(lastIndex, false);
+            chosen[i-1] = false;
         }
         memo.put(chosenSerialization, true);
 
