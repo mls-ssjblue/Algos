@@ -1,7 +1,6 @@
 public class AddTwoNumbers {
 
     public static void main(String[] args) {
-        System.out.println("hello");
 
         ListNode l1 = new ListNode(9);
         ListNode l2 = new ListNode(8);

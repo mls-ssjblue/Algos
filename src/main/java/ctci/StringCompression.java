@@ -1,4 +1,4 @@
-package ctci.arrays;
+package ctci;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

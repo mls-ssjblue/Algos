@@ -1,4 +1,4 @@
-package ctci.arrays;
+package ctci;
 
 import java.util.Scanner;
 

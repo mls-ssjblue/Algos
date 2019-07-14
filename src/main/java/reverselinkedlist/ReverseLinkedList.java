@@ -25,8 +25,7 @@ public class ReverseLinkedList {
         int i = 1;
         while (curr != null) {
             next = curr.next;
-            if (i < m) {
-            }
+
             if (i == m) {
                 second = curr;
                 first = prev;
