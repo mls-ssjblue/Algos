@@ -1,6 +1,7 @@
 package latest;
 
 public class FlattenBTToList {
+    private static TreeNode prev = null;
     public static void main(String[] args) {
 
         TreeNode root = new TreeNode(1);
@@ -17,23 +18,13 @@ public class FlattenBTToList {
         flatten(root);
     }
 
-    public static void flatten(TreeNode root){
-        flattenHelper(root);
-    }
-    public static TreeNode flattenHelper(TreeNode root){
-        if(root == null) return null;
-        TreeNode leftRes = flattenHelper(root.left);
-        TreeNode rightRes = flattenHelper(root.right);
-        if(leftRes == null) {
-            root.right = rightRes;
-        }
-        else {
-            root.right = leftRes;
-            root.left = null;
-            TreeNode tmp = leftRes;
-            while(tmp.right!=null) tmp = tmp.right;
-            tmp.right = rightRes;
-        }
-        return root;
+    public static void flatten(TreeNode root) {
+        if (root == null)
+            return;
+        flatten(root.right);
+        flatten(root.left);
+        root.right = prev;
+        root.left = null;
+        prev = root;
     }
 }
