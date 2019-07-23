@@ -1,4 +1,4 @@
-package misc;
+package latest;
 
 public class MaxIncreaseSkyline {
 
