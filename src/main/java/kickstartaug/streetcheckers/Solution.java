@@ -23,38 +23,29 @@ public class Solution {
     }
 
     private static int interestingGames(int l, int r) {
+        //case1: odd prime numbers in l, r
+        //case2: n -> 2*(2x+1) = 4x + 2
+        //case3: n%4==0? odd primes l/4, r/4
+        //case4: n==8
         long startTime = System.currentTimeMillis();
         int count = 0;
-        for(int i = l ; i <= r; i++){
 
-            int num = i;
-            //get all divisors for num from (1,num)
-            //count num even and odd divisors
-            //if (diff(even, odd) <=2) count ++
-            List<Integer> divisors = getDivisors(num);
-            List<Integer> evenDivisors = divisors.stream().filter(div -> div%2==0).collect(Collectors.toList());
-             divisors.removeAll(evenDivisors);
-            int paintedTilesDifference = Math.abs(evenDivisors.size() - divisors.size());
-            gameDifference.put(i,paintedTilesDifference);
-            if(paintedTilesDifference <=2) count++;
+        for(int num= l;num<=r;num++){
+            if(isOddPrime(num)) count++;
+            else if((num-2)%4==0) count++;
+            else if(num%4==0 && isOddPrime(num/4))count++;
+            else if(num==8) count++;
         }
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
-        System.out.println(elapsedTime);
         return count;
    }
 
-    private static List<Integer> getDivisors(int num) {
-        List<Integer> ans = new ArrayList<>();
-        for(int i = 1; i <= Math.sqrt(num); i++){
-            if(num%i==0){
-                ans.add(i);
-                ans.add(num/i);
-            }
-        }
-
-        return ans;
-    }
+   private static boolean isOddPrime(int num){
+        if(num==2) return false;
+       for(int i = 2; i <= Math.sqrt(num); i++){
+           if( num%i==0)return false;
+       }
+       return true;
+   }
 }
 
 
