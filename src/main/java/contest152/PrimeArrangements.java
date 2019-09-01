@@ -22,7 +22,7 @@ public class PrimeArrangements {
         }
         int primeCount = primes.size();
 
-        return (int)(factorial(primeCount).multiply(factorial(num-primeCount)).mod(BigInteger.valueOf((long)Math.pow(10,9)).add(BigInteger.valueOf(7)))).intValue();
+        return factorial(primeCount).multiply(factorial(num-primeCount)).mod(BigInteger.valueOf((long)Math.pow(10,9)).add(BigInteger.valueOf(7))).intValue();
     }
 
     private BigInteger factorial(int i) {
