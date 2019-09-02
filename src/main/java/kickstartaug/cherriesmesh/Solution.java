@@ -1,7 +1,6 @@
 package kickstartaug.cherriesmesh;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Scanner;
 
 public class Solution {
     public static void main(String[] args) {
@@ -12,13 +11,13 @@ public class Solution {
 
             int N = sc.nextInt();
             int M = sc.nextInt();
-            List<List<Integer>> cherrieconnections = new ArrayList<>();
-            for(int j = 0; j < M ; j ++){
-                int c = sc.nextInt();
-                int d = sc.nextInt();
-                cherrieconnections.add(Arrays.asList(c,d));
+            int[] p = DisjointSets.createSets(N);
+            int ans = 0;
+
+            for (int j = 0; j < M; j++) {
+                int a = sc.nextInt() - 1, b = sc.nextInt() - 1;
+                if (DisjointSets.unite(p, a, b)) ans++;
             }
-            minSugar[i] = minSugar(N,M, cherrieconnections);
         }
 
         for (int i = 0; i < T; i++) {
@@ -26,37 +25,32 @@ public class Solution {
         }
     }
 
-    private static int minSugar(int N, int M, List<List<Integer>> blackConnections){
-
-        Set<Set<Integer>> groups = new HashSet<>();
-        Set<Integer> connectedPoints = new HashSet<>();
-        connectedPoints.add(blackConnections.get(0).get(0));
-        connectedPoints.add(blackConnections.get(0).get(1));
-        groups.add(connectedPoints);
-        blackConnections.forEach(connection -> {
-            for (Set<Integer> points : groups) {
-                if(points.contains(connection.get(0)) || points.contains(connection.get(1))){
-                    points.add(connection.get(0));
-                    points.add(connection.get(1));
-                }
-                else {
-                    Set<Integer> newGroup = new HashSet<>();
-                    newGroup.add(connection.get(0));
-                    newGroup.add(connection.get(1));
-                    groups.add(newGroup);
-                }
-            }
-
-        });
-
-        Set<Integer> distinct = blackConnections.stream().flatMap(List::stream).collect(Collectors.toSet());
-        long distinctConnectedCherries = distinct.size();
-        int redStrandsNeeded = groups.size() - 1 + (N - (int)distinctConnectedCherries);
-
-        long blackStandsNeeded = groups.stream().mapToLong(group -> group.size() - 1).sum();
-
-        return (int)blackStandsNeeded + 2*(redStrandsNeeded);
+}
+class DisjointSets {
+    public static int[] createSets(int size) {
+        int[] p = new int[size];
+        for (int i = 0; i < size; i++)
+            p[i] = i;
+        return p;
     }
+
+    public static int root(int[] p, int x) {
+        return x == p[x] ? x : (p[x] = root(p, p[x]));
+    }
+
+    public static boolean unite(int[] p, int a, int b) {
+        a = root(p, a);
+        b = root(p, b);
+        if (a != b) {
+            if (Math.random() < 0.5)
+                p[a] = b;
+            else
+                p[b] = a;
+            return true;
+        }
+        return false;
+    }
+
 }
 
 
