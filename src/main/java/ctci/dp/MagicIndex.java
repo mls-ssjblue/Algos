@@ -7,7 +7,26 @@ public class MagicIndex {
     @Test
     public void test(){
         int[] a = {-5,-4,1,3,8,9};
-        Assertions.assertEquals(3, magicIndex(a));
+        Assertions.assertEquals(3, magicIndexRec(a));
+    }
+
+    private int magicIndexRec(int[] a) {
+        int low = 0;
+        int high = a.length-1;
+        return magicIndexRecHelper(a, low, high);
+    }
+
+    private int magicIndexRecHelper(int[] a, int start, int end) {
+        if(start > end || start<0 || end >a.length-1) return -1;
+        int mid = (start+end)/2;
+        if(a[mid] == mid ) return mid;
+        if(a[mid]<mid){
+            return magicIndexRecHelper(a,mid+1,end);
+        }
+        else {
+            return magicIndexRecHelper(a,start, mid-1 );
+        }
+
     }
 
     private int magicIndex(int[] a) {
