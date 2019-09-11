@@ -23,7 +23,8 @@ public class AllPermutationsString {
     }
 
     private void permutations(String word, String currentPermutation, boolean[] used){
-        if(currentPermutation.length() == word.length() && !answer.contains(currentPermutation)) answer.add(currentPermutation)    ;
+        if(answer.contains(currentPermutation)) return;
+        if(currentPermutation.length() == word.length()) answer.add(currentPermutation)    ;
 
         for(int i = 0 ; i < word.length(); i++){
             if(used[i])continue;
