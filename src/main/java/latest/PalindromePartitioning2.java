@@ -4,31 +4,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class PalindromePartioning {
+public class PalindromePartitioning2 {
 
-//    Map<String,List<List<String>>> memo = new HashMap<>();
-
-    Set<String> memo = new HashSet<>();
+    Set<Boolean> memo = new HashSet<>();
 
     @Test
-    public void test() {
+    public void test(){
 
-        List<List<String>> res = new ArrayList<>();
-        res.add(Arrays.asList("a","b","bab"));
-        res.add(Arrays.asList("a","b","b","a","b"));
-        res.add(Arrays.asList("a","bb","a","b"));
-        res.add(Arrays.asList("abba","b"));
-        Assertions.assertEquals(res, partition("abbab"));
+        Assertions.assertEquals(1, minCut("aab"));
     }
 
-//    Map<String,List<List<String>>> memo = new HashMap<>();
+    public int minCut(String s) {
 
-    public List<List<String>> partition(String s) {
-
-        return partitionHelper(s);
+        return 1;
     }
 
     private List<List<String>> partitionHelper(String s) {
@@ -38,21 +27,18 @@ public class PalindromePartioning {
         if (s.length() == 1) {
             vals.add(s);
             List<List<String>> res = Arrays.asList(vals);
-            memo.add(s);
 //            memo.put(s,res);
             return res;
         }
 
         List<List<String>> palindromeSubStrings = new ArrayList<>();
-        if (memo.contains(s) || (s.length()>0 && isPalindrome(s))) {
-            if(!memo.contains(s)) memo.add(s);
+        if (s.length()>0 && isPalindrome(s)) {
             vals.add(s);
             palindromeSubStrings.add(vals);
         }
         for (int i = 0; i < s.length(); i++) {
             String firstPart = s.substring(0, i+1);
-            if (memo.contains(firstPart) || isPalindrome(firstPart)) {
-                if(!memo.contains(firstPart)) memo.add(firstPart);
+            if (isPalindrome(firstPart)) {
                 List<List<String>> res = partitionHelper(s.substring(i+1));
                 res.forEach(item -> {
                     List<String> tempItem = new ArrayList<>();
@@ -65,8 +51,8 @@ public class PalindromePartioning {
 //        memo.put(s, palindromeSubStrings);
 
         return palindromeSubStrings;
-    }
 
+    }
 
     private boolean isPalindrome(String s) {
         if (s.length() == 0 || s.length() == 1) return true;

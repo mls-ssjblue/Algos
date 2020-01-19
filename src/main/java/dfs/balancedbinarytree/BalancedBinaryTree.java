@@ -2,12 +2,16 @@ package dfs.balancedbinarytree;
 
 import dfs.TreeNode;
 
+import java.util.stream.Collectors;
+
 public class BalancedBinaryTree {
     public static void main(String[] args) {
         int[] arr = {1,2,2,3,3,-1,-1,4,4};
         TreeNode tree = TreeNode.buildTree(arr, null, 0);
         System.out.println(isBalanced(tree));
     }
+
+//    Collectors
 
     private static boolean isBalanced(TreeNode root) {
 

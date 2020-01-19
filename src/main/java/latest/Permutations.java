@@ -36,8 +36,7 @@ public class Permutations {
 
     private void permuteHelper(int[] nums, List<Integer> current) {
         if(current.size() == nums.length){
-            List<Integer> permutation = new ArrayList<>();
-            permutation.addAll(current);
+            List<Integer> permutation = new ArrayList<>(current);
             permutations.add(permutation);
             return;
         }

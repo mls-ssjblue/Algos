@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CanIWin {
+public class  CanIWin {
     private static Map<String, Boolean> memo; // key: chosen[] to string, value: canIWinWithSituation return value when chosen to string is key
 
 
     public static void main(String[] args) {
-        System.out.println(canIWin(10,25));
+        System.out.println(canIWin(4,6));
     }
 
     public static boolean canIWin(int maxChoosableInteger, int desiredTotal) {

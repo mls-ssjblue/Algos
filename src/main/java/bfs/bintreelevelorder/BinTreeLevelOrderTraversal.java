@@ -10,13 +10,18 @@ public class BinTreeLevelOrderTraversal {
         int[] arr = {1, 2, 2, 3, 3, -1, -1, 4, 4};
         TreeNode tree = TreeNode.buildTree(arr, null, 0);
 
-        Iterator iterator = levelOrder(tree).iterator();
-        while (iterator.hasNext()) {
-            List<Integer> level = (LinkedList<Integer>) iterator.next();
-            for (Integer i : level) {
-                System.out.println(i);
-            }
-        }
+//        Iterator iterator = levelOrder2(tree).iterator();
+//        while (iterator.hasNext()) {
+//            List<Integer> level = (LinkedList<Integer>) iterator.next();
+//            for (Integer i : level) {
+//                System.out.println(i);
+//            }
+//        }
+        List<List<Integer>> res = levelOrder2(tree);
+        res.forEach(list->{
+            list.forEach(item->System.out.print(item));
+            System.out.println();
+        });
     }
 
     public static List<List<Integer>> levelOrder(TreeNode root) {
@@ -46,5 +51,31 @@ public class BinTreeLevelOrderTraversal {
 
         }
         return levelOrder;
+    }
+
+    public static List<List<Integer>> levelOrder2(TreeNode root) {
+        if(root == null) return null;
+        Queue<TreeNode> toVisit = new LinkedList<>();
+        TreeNode current = root;
+        toVisit.add(current);
+        List<List<Integer>> res = new ArrayList<>();
+        int count = 1;
+        List<Integer> l = new ArrayList(root.val);
+        res.add(l);
+
+        while(!toVisit.isEmpty()){
+            current = toVisit.remove();
+            if(current.left != null) {toVisit.add(current.left);}
+            if(current.right != null) {toVisit.add(current.right);}
+            count+=2;
+            if(isPowerOfTwo(count+1) ){
+                l = toVisit.stream().map(node->node.val).collect(Collectors.toList());
+                res.add(l);
+            }
+        }
+        return res;
+    }
+    public static boolean isPowerOfTwo(int n) {
+        return n>0 && n==Math.pow(2, Math.round(Math.log(n)/Math.log(2)));
     }
 }

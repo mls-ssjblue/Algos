@@ -1,6 +1,6 @@
 //package codejam.qualifying.maze;
 //
-//import sun.misc.Queue;
+//import sun.latest.Queue;
 //
 //import java.util.ArrayList;
 //import java.util.LinkedListNode;
