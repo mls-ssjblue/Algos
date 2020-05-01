@@ -23,70 +23,64 @@ public class Solution {
     }
 
     private static String expogo(int x, int y) {
-        if ((x+y) %2 == 0) return "IMPOSSIBLE";
+        StringBuilder ans = new StringBuilder();
 
-        Map<List<Integer>,String> m = new HashMap<>();
-        String res = helper(Math.abs(x), Math.abs(y), "",m);
-        if (res.equals("IMPOSSIBLE")) return res;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < res.length(); i++) {
-            Character c = res.charAt(i);
-            char n = c;
-            if (x < 0) {
-                if (c == 'W') n = 'E';
-                else if (c == 'E') n = 'W';
+        /*
+
+            The idea is two move in the direction of the odd coordinate first (either away or towards) as
+            the first move is the only chance to make an odd move(1).
+            if x=5,y=6. The first move is either E or W. Assume you move E, then x is now x=4,y=6 and the jump length =2.
+            This is equivalent to covering x=4/2 = 2, y=6/2 =3 with a jump length of 1. Repeat the process, whereby the
+            odd coordinate is chosen first. To decide between E or W, x1=(x+1)/2,y1=y/2. if(x1+y) is odd, then there is
+            a solution choosing 'W' and x=x1. Else if (x1+y) is even, there is no solution going west. Instead x=(x-1)/2
+            and 'E' is chosen. In both cases y=y/2.
+            Similarly, works for when y is odd.
+
+         */
+        if (Math.abs(x + y) % 2 != 1) return "IMPOSSIBLE";
+        else {
+            while ((x != 0) || (y != 0)) {
+                System.out.println(x+ " "+y);
+
+                if (Math.abs(x) + Math.abs(y) == 1) { // if only dist=1 is left to cover in any direction
+                    if ((x == 0) && (y == 1)) ans.append('N');
+                    else if ((x == 0) && (y == -1))
+                        ans.append('S');
+                    else if ((y == 0) && (x == 1))
+                        ans.append('E');
+                    else
+                        ans.append('W');
+
+                    break;
+                }
+                if (Math.abs(x) % 2 == 1) { //if x is odd , y is even
+                    int y1 = y / 2, x1 = (x + 1) / 2;
+                    if (Math.abs(x1 + y1) % 2 == 1) {
+                        ans.append('W');
+                        y = y1;
+                        x = x1;
+                    } else {
+                        ans.append('E');
+                        y = y1;
+                        x = (x - 1) / 2;
+                    }
+                } else { // x is even, y is odd
+                    int y1 = (y + 1) / 2, x1 = x / 2;
+                    if (Math.abs(x1 + y1) % 2 == 1) {
+                        ans.append('S');
+                        y = y1;
+                        x = x1;
+                    } else {
+                        ans.append('N');
+                        y = (y - 1) / 2;
+                        x = x1;
+                    }
+                }
+//                System.out.println(x+ " "+y);
+
             }
-            if (y < 0) {
-                if (c == 'N') n = 'S';
-                else if (c == 'S') n = 'N';
-            }
-            sb.append(n);
         }
-        return sb.toString();
+        return ans.toString();
 
-    }
-
-    private static String helper(int x, int y, String s, Map<List<Integer>,String> m) {
-        if (x == 0 && y == 0) {
-            return s;
-        }
-
-        int jump = s.length() + 1;
-        int dist = (int) Math.pow(2, jump - 1);
-
-        final String IMPOSSIBLE = "IMPOSSIBLE";
-        if ((x != 0 && x < dist) ||
-                (y != 0 && y < dist)) return IMPOSSIBLE;
-        if (x != 0) {
-            String res = m.get(Arrays.asList(x-dist,y,jump));
-            String east = res!=null? res :helper(x - dist, y, s+"E",m);
-            m.put(Arrays.asList(x-dist,y,jump),east);
-            m.put(Arrays.asList(y,x-dist,jump),east);
-            if (!east.equals(IMPOSSIBLE)) return east;
-
-            res = m.get(Arrays.asList(x+dist,y,jump));
-            String west =  res!=null? res :helper(x + dist, y, s+"W",m);
-            m.put(Arrays.asList(x+dist,y,jump),west);
-            m.put(Arrays.asList(y,x+dist,jump),west);
-            if (!west.equals(IMPOSSIBLE)) return west;
-        }
-        if (y != 0) {
-            String res = m.get(Arrays.asList(x, y - dist,jump));
-
-            String north = res!=null? res :helper(x, y - dist, s+"N",m);
-            m.put(Arrays.asList(x, y - dist,jump),north);
-            m.put(Arrays.asList(y-dist,x,jump),north);
-
-
-            if (!north.equals(IMPOSSIBLE)) return north;
-
-            res = m.get(Arrays.asList(x, y + dist,jump));
-            String south = res!=null? res :helper(x, y + dist, s+"S",m);
-            m.put(Arrays.asList(x, y + dist,jump),south);
-            m.put(Arrays.asList(y+dist,x,jump),south);
-
-            if (!south.equals(IMPOSSIBLE)) return south;
-        }
-        return IMPOSSIBLE;
     }
 }
